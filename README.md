@@ -5,6 +5,9 @@
 ## Let's make new one world with shinobi.
 
 This is python script made by flask framework.
+It intended to scrap the websites from google search engine using Flask based on user's input.
+
+### About Python Flask
 
 Flask is a Python web framework that allows you to develop web applications quickly and easily.
 It is lightweight, modular, and very flexible.
@@ -22,3 +25,12 @@ Flask is often used for developing small to medium-sized web applications or API
 It provides a lot of flexibility in terms of how you structure your application and allows you to keep things simple or scale up to meet more complex requirements.
 
 Overall, Flask is a powerful and popular web framework that is beginner-friendly and great for building web applications in Python.
+
+### How to work
+
+1. Install python.exe.
+2. Install Flask framework.
+3. Run app.py using python -m flask run instruction.
+4. Access to 127.0.0.1:5000 in browser.
+5. Type the topic to input field.
+6. Alright! You can see scrapping data from google search engine.

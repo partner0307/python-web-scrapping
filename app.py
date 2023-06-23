@@ -12,7 +12,7 @@ nltk.download('punkt')
 
 # Set up Flask app and OpenAI API key
 app = Flask(__name__)
-openai.api_key = os.environ.get("OPENAI_API_KEY")
+openai.api_key = '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'
 
 # Define function to scrap the websites related to user's input.
 def google_search(query):
@@ -22,7 +22,7 @@ def google_search(query):
     response = requests.get(url, params=params, headers=header)
 
     soup = BeautifulSoup(response.text, 'html.parser')
-    search_results = soup.find_all('div')
+    search_results = soup.find_all('div', {'class': 'MjjYud'})
     return search_results
 
 # Define route to render HTML template
@@ -50,15 +50,20 @@ def api():
     for text in results:
         summary = summarize(text)
         summarizes.append(summary)
+
+    summarizes = ''
+    for text in results:
+        summary = summarize(text)
+        summarizes + ' ' + summary
     
-    # # Use OpenAI to generate answer
-    # response = openai.Completion.create(
-    #     engine="davinci-instruct-beta-v3", prompt=f"Please write top website content and urls related to {question}. \n ", max_tokens=1024, n=1, stop=None, temperature=0.7,
-    # )
-    # answer = response.choices[0].text.strip()
+    # Use OpenAI to generate answer
+    response = openai.Completion.create(
+        engine="text-davinci-003", prompt=f"I will give you text content, you will explain it and output an explanation with website urls related to text content. I want you to pretend to explain the text to a middle school student who has no background knowledge or professional knowledge about the text I give you. Your task is to write the highest quality explanation possible, including examples and analogies certainly. You have to give me website urls certainly. Now, using the concepts above, explain the following text. {question}", max_tokens=1024, n=1, stop=None, temperature=0.7,
+    )
+    print(response)
+    answer = response.choices[0].text.strip()
     
-    # Return answer as JSON
-    return jsonify({"answer": summarizes})
+    return jsonify({"answer": answer})
 
 # Run app
 if __name__ == "__main__":

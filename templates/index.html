@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OpenAI Flask Example</title>
+  </head>
+  <body>
+    <h1>Ask me any question:</h1>
+    <form id="qa-form">
+      <input type="text" name="question" id="question-input" style="width: 400px;">
+      <button type="submit">Submit</button>
+    </form>
+    <div id="answer"></div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $("#qa-form").submit(function (event) {
+        event.preventDefault();
+        const question = $("#question-input").val();
+        $.ajax({
+          type: "POST",
+          url: "/api",
+          contentType: "application/json",
+          data: JSON.stringify({
+            question: question,
+          }),
+          success: function (response) {
+            const answer = response.answer;
+            $("#answer").text(answer)
+          },
+          error: function (error) {
+            console.log(error);
+          },
+        });
+      });
+    </script>
+  </body>
+</html>

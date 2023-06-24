@@ -12,7 +12,7 @@ nltk.download('punkt')
 
 # Set up Flask app and OpenAI API key
 app = Flask(__name__)
-openai.api_key = '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'
+openai.api_key = 'YOUR_API_KEY'
 
 # Define function to scrap the websites related to user's input.
 def google_search(query):
